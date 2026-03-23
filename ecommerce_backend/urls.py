@@ -7,7 +7,7 @@ urlpatterns = [
     path('api/health/', health_check, name='health_check'),
     
     # App-level routing
-    path('api/users/', include('users.urls', namespace='users')),
+    path('api/auth/', include('users.urls', namespace='users')),
     path('api/products/', include('products.urls', namespace='products')),
     path('api/cart/', include('cart.urls', namespace='cart')),
     path('api/orders/', include('orders.urls', namespace='orders')),

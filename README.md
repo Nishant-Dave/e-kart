@@ -48,3 +48,27 @@ python manage.py runserver
 ```
 
 Check the health API to verify it's running: `http://127.0.0.1:8000/api/health/`
+
+### 6. Authentication API Testing
+
+**1. Register a User**
+```bash
+curl -X POST http://127.0.0.1:8000/api/auth/register/ \
+     -H "Content-Type: application/json" \
+     -d '{"email": "test@example.com", "password": "securepassword123", "first_name": "Test", "last_name": "User"}'
+```
+
+**2. Login**
+```bash
+curl -X POST http://127.0.0.1:8000/api/auth/login/ \
+     -H "Content-Type: application/json" \
+     -d '{"email": "test@example.com", "password": "securepassword123"}'
+```
+*(This returns an `access` and `refresh` token)*
+
+**3. Use Token in Headers**
+To access protected routes like the profile endpoint, pass the `access` token in the `Authorization` header using the `Bearer` prefix:
+```bash
+curl -X GET http://127.0.0.1:8000/api/auth/profile/ \
+     -H "Authorization: Bearer <your_access_token>"
+```
