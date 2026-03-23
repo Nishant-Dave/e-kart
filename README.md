@@ -128,3 +128,24 @@ curl -X POST http://127.0.0.1:8000/api/cart/remove/ \
      -H "Content-Type: application/json" \
      -d '{"product_id": 1}'
 ```
+
+### 9. Orders & Checkout API Testing (Requires Context Token)
+
+**1. Checkout (Convert Cart to Order)**
+Creates a frozen snapshot of the current cart, logs the total price, and then empties the cart.
+```bash
+curl -X POST http://127.0.0.1:8000/api/orders/checkout/ \
+     -H "Authorization: Bearer <your_access_token>"
+```
+
+**2. List User Orders**
+```bash
+curl -X GET http://127.0.0.1:8000/api/orders/ \
+     -H "Authorization: Bearer <your_access_token>"
+```
+
+**3. Get Specific Order Details**
+```bash
+curl -X GET http://127.0.0.1:8000/api/orders/1/ \
+     -H "Authorization: Bearer <your_access_token>"
+```
