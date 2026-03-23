@@ -1,6 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { addToCart } from '../services/cart';
 
 const ProductCard = ({ product }) => {
+  const [isAdding, setIsAdding] = useState(false);
+
+  const handleAddToCart = async (e) => {
+    e.stopPropagation(); // Prevent the click from triggering card navigation if you add it later
+    setIsAdding(true);
+    try {
+      await addToCart(product.id, 1);
+      alert('Product added to cart successfully!');
+    } catch (error) {
+      console.error('Add to cart failed:', error);
+      alert('Failed to add product to cart.');
+    } finally {
+      setIsAdding(false);
+    }
+  };
+
   // Use a default image if none provided by API
   const imageUrl = product.image || `https://via.placeholder.com/400x400/f3f4f6/6b7280?text=${encodeURIComponent(product.name)}`;
   
@@ -16,8 +33,12 @@ const ProductCard = ({ product }) => {
         />
         {/* Hover action overlay */}
         <div className="absolute inset-x-0 bottom-0 p-3 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 z-10">
-          <button className="w-full bg-black text-white text-xs py-2.5 rounded-md font-semibold hover:bg-gray-800 shadow-md">
-            Quick Add
+          <button 
+            onClick={handleAddToCart}
+            disabled={isAdding}
+            className={`w-full bg-black text-white text-xs py-2.5 rounded-md font-semibold hover:bg-gray-800 shadow-md transition-colors ${isAdding ? 'opacity-75 cursor-not-allowed' : ''}`}
+          >
+            {isAdding ? 'Adding...' : 'Add to Cart'}
           </button>
         </div>
       </div>

@@ -44,10 +44,7 @@ export default function ProductsPage() {
   );
 
   return (
-    <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-gray-200">
-      {/* Full Width Top Navbar */}
-      <Navbar />
-      
+    <div className="w-full selection:bg-gray-200 pb-16">      
       {/* Page Breadcrumb - Constrained to max-width */}
       <div className="max-w-[1440px] mx-auto px-8 pt-6 pb-2">
         <p className="text-[11px] text-gray-500 uppercase tracking-widest font-semibold flex gap-2">
