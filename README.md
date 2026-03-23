@@ -149,3 +149,19 @@ curl -X GET http://127.0.0.1:8000/api/orders/ \
 curl -X GET http://127.0.0.1:8000/api/orders/1/ \
      -H "Authorization: Bearer <your_access_token>"
 ```
+
+### 10. Reviews API Testing
+
+**1. Create or Update a Review (Requires Context Token)**
+*Only one review permitted per product per user.*
+```bash
+curl -X POST http://127.0.0.1:8000/api/reviews/ \
+     -H "Authorization: Bearer <your_access_token>" \
+     -H "Content-Type: application/json" \
+     -d '{"product": 1, "rating": 5, "comment": "Excellent product!"}'
+```
+
+**2. List Reviews for a Product (Public)**
+```bash
+curl -X GET http://127.0.0.1:8000/api/reviews/1/
+```
