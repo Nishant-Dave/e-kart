@@ -94,3 +94,37 @@ curl -X GET "http://127.0.0.1:8000/api/products/?search=laptop"
 curl -X GET "http://127.0.0.1:8000/api/products/?category=1"
 curl -X GET "http://127.0.0.1:8000/api/products/?category__slug=electronics"
 ```
+
+### 8. Cart API Testing (Requires Context Token)
+
+Run these endpoints securely using your `Bearer <access_token>`.
+
+**1. Get Current Cart**
+```bash
+curl -X GET http://127.0.0.1:8000/api/cart/ \
+     -H "Authorization: Bearer <your_access_token>"
+```
+
+**2. Add Product to Cart**
+```bash
+curl -X POST http://127.0.0.1:8000/api/cart/add/ \
+     -H "Authorization: Bearer <your_access_token>" \
+     -H "Content-Type: application/json" \
+     -d '{"product_id": 1, "quantity": 2}'
+```
+
+**3. Update Cart Item Quantity**
+```bash
+curl -X POST http://127.0.0.1:8000/api/cart/update/ \
+     -H "Authorization: Bearer <your_access_token>" \
+     -H "Content-Type: application/json" \
+     -d '{"product_id": 1, "quantity": 5}'
+```
+
+**4. Remove From Cart**
+```bash
+curl -X POST http://127.0.0.1:8000/api/cart/remove/ \
+     -H "Authorization: Bearer <your_access_token>" \
+     -H "Content-Type: application/json" \
+     -d '{"product_id": 1}'
+```
