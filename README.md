@@ -72,3 +72,25 @@ To access protected routes like the profile endpoint, pass the `access` token in
 curl -X GET http://127.0.0.1:8000/api/auth/profile/ \
      -H "Authorization: Bearer <your_access_token>"
 ```
+
+### 7. Products API Testing
+
+**1. List all Active Products**
+```bash
+curl -X GET http://127.0.0.1:8000/api/products/
+```
+
+**2. List all Categories**
+```bash
+curl -X GET http://127.0.0.1:8000/api/categories/
+```
+
+**3. Search and Filter Products**
+```bash
+# Search by name/description
+curl -X GET "http://127.0.0.1:8000/api/products/?search=laptop"
+
+# Filter by category
+curl -X GET "http://127.0.0.1:8000/api/products/?category=1"
+curl -X GET "http://127.0.0.1:8000/api/products/?category__slug=electronics"
+```

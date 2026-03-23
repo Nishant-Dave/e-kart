@@ -8,7 +8,7 @@ urlpatterns = [
     
     # App-level routing
     path('api/auth/', include('users.urls', namespace='users')),
-    path('api/products/', include('products.urls', namespace='products')),
+    path('api/', include('products.urls', namespace='products')),
     path('api/cart/', include('cart.urls', namespace='cart')),
     path('api/orders/', include('orders.urls', namespace='orders')),
     path('api/reviews/', include('reviews.urls', namespace='reviews')),
