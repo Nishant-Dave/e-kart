@@ -4,6 +4,7 @@ import ProductsPage from './pages/ProductsPage'
 import ProductDetailPage from './pages/ProductDetailPage'
 import CartPage from './pages/CartPage'
 import OrderSuccessPage from './pages/OrderSuccessPage'
+import OrdersPage from './pages/OrdersPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import Layout from './layouts/Layout'
@@ -24,7 +25,7 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/cart" element={<CartPage />} />
             <Route path="/order-success" element={<OrderSuccessPage />} />
-            {/* <Route path="/orders" element={<OrdersPage />} /> */}
+            <Route path="/orders" element={<OrdersPage />} />
           </Route>
           
           <Route path="/login" element={<LoginPage />} />

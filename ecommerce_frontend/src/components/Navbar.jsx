@@ -42,7 +42,10 @@ const Navbar = () => {
             Cart <span className="bg-indigo-100 text-indigo-800 text-[10px] px-2 py-0.5 rounded-full">{totalCount}</span>
           </Link>
           {token ? (
-            <button onClick={handleLogout} className="text-red-600 hover:text-red-700 transition-colors font-semibold">Logout</button>
+            <>
+              <Link to="/orders" className="hover:text-indigo-600 transition-colors">Orders</Link>
+              <button onClick={handleLogout} className="text-red-600 hover:text-red-700 transition-colors font-semibold">Logout</button>
+            </>
           ) : (
             <Link to="/login" className="bg-indigo-900 text-white px-5 py-2.5 rounded-full hover:bg-indigo-800 hover:shadow-lg hover:-translate-y-0.5 transition-all">Sign In</Link>
           )}
@@ -65,7 +68,10 @@ const Navbar = () => {
             Cart <span className="bg-indigo-100 text-indigo-800 text-[10px] px-2 py-0.5 rounded-full">{totalCount}</span>
           </Link>
           {token ? (
-            <button onClick={handleLogout} className="block w-full text-left text-red-600 font-semibold py-2">Logout</button>
+            <>
+              <Link to="/orders" className="block text-indigo-900 font-semibold py-2">Orders</Link>
+              <button onClick={handleLogout} className="block w-full text-left text-red-600 font-semibold py-2 border-t border-indigo-50 mt-2">Logout</button>
+            </>
           ) : (
             <Link to="/login" className="block text-indigo-900 font-semibold py-2">Sign In</Link>
           )}
