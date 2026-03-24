@@ -6,6 +6,7 @@ import CartPage from './pages/CartPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import Layout from './layouts/Layout'
+import ProtectedRoute from './components/ProtectedRoute'
 import { CartProvider } from './context/CartContext'
 
 function App() {
@@ -17,7 +18,13 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/products/:slug" element={<ProductDetailPage />} />
-          <Route path="/cart" element={<CartPage />} />
+          
+          {/* SECURE PROTECTED ROUTES */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/cart" element={<CartPage />} />
+            {/* <Route path="/orders" element={<OrdersPage />} /> */}
+          </Route>
+          
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
         </Routes>

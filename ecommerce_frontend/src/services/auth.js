@@ -1,34 +1,21 @@
 import api from './api';
 
 /**
- * Register a new user
- * @param {Object} userData - Should contain the necessary fields (e.g. email, password, etc)
+ * Login a user natively with arguments
+ * @param {string} email 
+ * @param {string} password 
  */
-export const registerUser = async (userData) => {
+export const login = async (email, password) => {
   try {
-    const response = await api.post('auth/register/', userData);
-    return response.data;
-  } catch (error) {
-    console.error('Registration error:', error.response?.data || error.message);
-    throw error;
-  }
-};
-
-/**
- * Login a user and retrieve JWT tokens
- * @param {Object} credentials - Usually { email, password } or { username, password }
- */
-export const loginUser = async (credentials) => {
-  try {
-    const response = await api.post('auth/login/', credentials);
-    // Usually responses contain access and refresh tokens
+    const response = await api.post('auth/login/', { email, password });
+    
+    // Store access token natively
     if (response.data.access) {
       localStorage.setItem('access_token', response.data.access);
       if (response.data.refresh) {
         localStorage.setItem('refresh_token', response.data.refresh);
       }
     } else if (response.data.token) {
-      // Fallback for some Simple JWT setups that return a single 'token'
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('access_token', response.data.token);
     }
@@ -40,10 +27,38 @@ export const loginUser = async (credentials) => {
 };
 
 /**
- * Logout user by removing tokens
+ * Remove active session tokens
  */
-export const logoutUser = () => {
+export const logout = () => {
   localStorage.removeItem('access_token');
   localStorage.removeItem('refresh_token');
   localStorage.removeItem('token');
+};
+
+/**
+ * Helper to safely extract the token
+ * @returns {string | null}
+ */
+export const getToken = () => {
+  return localStorage.getItem('access_token') || localStorage.getItem('token');
+};
+
+// --- Legacy aliases preserved for backwards compatibility with older UI components --- //
+
+export const registerUser = async (userData) => {
+  try {
+    const response = await api.post('auth/register/', userData);
+    return response.data;
+  } catch (error) {
+    console.error('Registration error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const loginUser = async (credentials) => {
+  return await login(credentials.email, credentials.password);
+};
+
+export const logoutUser = () => {
+  logout();
 };

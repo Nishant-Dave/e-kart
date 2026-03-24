@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginUser } from '../services/auth';
+import { login } from '../services/auth';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -15,7 +15,7 @@ export default function LoginPage() {
     setIsLoading(true);
     
     try {
-      await loginUser({ email, password });
+      await login(email, password);
       navigate('/products');
     } catch (err) {
       if (err.response && err.response.data) {
