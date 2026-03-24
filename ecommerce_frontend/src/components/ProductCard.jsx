@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { addToCart } from '../services/cart';
+import { useCart } from '../context/CartContext';
 
 const ProductCard = ({ product }) => {
   const [isAdding, setIsAdding] = useState(false);
+  const { updateCartState } = useCart();
 
   const handleAddToCart = async (e) => {
     e.stopPropagation(); 
     setIsAdding(true);
     try {
       await addToCart(product.id, 1);
+      updateCartState();
       alert('Product added to cart successfully!');
     } catch (error) {
       console.error('Add to cart failed:', error);

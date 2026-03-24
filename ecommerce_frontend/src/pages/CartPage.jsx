@@ -1,38 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getCart, updateCartItem, removeCartItem } from '../services/cart';
+import { updateCartItem, removeCartItem } from '../services/cart';
+import { useCart } from '../context/CartContext';
 
 export default function CartPage() {
-  const [cart, setCart] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState('');
+  const { cartItems, updateCartState } = useCart();
   const navigate = useNavigate();
-
-  const fetchCart = async () => {
-    try {
-      if (!localStorage.getItem('access_token')) {
-        setError('Please sign in to view your cart.');
-        setIsLoading(false);
-        return;
-      }
-      const data = await getCart();
-      setCart(data);
-    } catch (err) {
-      setError('Unable to load cart. Please try refreshing.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchCart();
-  }, []);
 
   const handleUpdate = async (productId, newQuantity) => {
     if (newQuantity < 1) return;
     try {
       await updateCartItem(productId, newQuantity);
-      fetchCart();
+      updateCartState();
     } catch (err) {
       alert('Failed to update quantity.');
     }
@@ -41,21 +20,13 @@ export default function CartPage() {
   const handleRemove = async (productId) => {
     try {
       await removeCartItem(productId);
-      fetchCart();
+      updateCartState();
     } catch (err) {
       alert('Failed to remove item.');
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex-1 flex items-center justify-center p-20 bg-indigo-50/20">
-        <div className="text-xl font-bold text-indigo-900 animate-pulse">Loading Cart...</div>
-      </div>
-    );
-  }
-
-  if (error || !cart || !cart.items || cart.items.length === 0) {
+  if (!cartItems || cartItems.length === 0) {
     return (
       <div className="flex-1 max-w-[1440px] w-full mx-auto px-6 py-12 md:py-24">
         <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-indigo-50 p-12 text-center max-w-2xl mx-auto flex flex-col items-center">
@@ -64,7 +35,7 @@ export default function CartPage() {
           </div>
           <h2 className="text-3xl font-black text-indigo-950 tracking-tight mb-2">Your cart is empty</h2>
           <p className="text-indigo-400 font-medium mb-8">
-            {error || 'It looks like you haven\'t added anything to your cart yet.'}
+            It looks like you haven't added anything to your cart yet.
           </p>
           {!localStorage.getItem('access_token') ? (
             <button onClick={() => navigate('/login')} className="bg-indigo-900 text-white px-8 py-4 rounded-xl font-bold hover:bg-indigo-800 shadow-[0_8px_20px_-6px_rgba(49,46,129,0.5)] transition-all">Sign In to Continue</button>
@@ -76,8 +47,8 @@ export default function CartPage() {
     );
   }
 
-  // Calculate cart total from the serializer response
-  const cartTotal = cart.items.reduce((total, item) => total + (item.quantity * Number(item.product.price)), 0);
+  // Calculate cart total from the context items array
+  const cartTotal = cartItems.reduce((total, item) => total + (item.quantity * Number(item.product.price)), 0);
 
   return (
     <div className="flex-1 w-full max-w-[1440px] mx-auto px-4 sm:px-6 py-8 md:py-16">
@@ -86,7 +57,7 @@ export default function CartPage() {
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
         {/* Cart Items List */}
         <div className="w-full lg:w-2/3 flex flex-col gap-6">
-          {cart.items.map((item) => (
+          {cartItems.map((item) => (
             <div key={item.id} className="flex flex-col sm:flex-row items-start sm:items-center gap-6 p-6 bg-white rounded-3xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-indigo-50 relative group">
               <div className="w-24 h-24 sm:w-32 sm:h-32 bg-indigo-50/50 rounded-2xl overflow-hidden shrink-0">
                 <img 
@@ -158,7 +129,6 @@ export default function CartPage() {
           </button>
           
           <div className="mt-6 flex justify-center gap-4 text-indigo-300 relative z-10 opacity-70">
-            {/* Payment security mock icons */}
             <svg className="w-8 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15.5v-1l-3-3 1.41-1.41L11 13.67v-3.17h2v5.67l3.59-3.59L18 14.1l-5 5v1h-2z"/></svg>
             <span className="text-xs font-semibold tracking-wider">Secured via SSL</span>
           </div>

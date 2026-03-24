@@ -6,11 +6,13 @@ import CartPage from './pages/CartPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import Layout from './layouts/Layout'
+import { CartProvider } from './context/CartContext'
 
 function App() {
   return (
-    <Router>
-      <Layout>
+    <CartProvider>
+      <Router>
+        <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/products" element={<ProductsPage />} />
@@ -21,6 +23,7 @@ function App() {
         </Routes>
       </Layout>
     </Router>
+    </CartProvider>
   )
 }
 

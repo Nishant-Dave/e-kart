@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { totalCount } = useCart();
   const navigate = useNavigate();
   const token = localStorage.getItem('access_token');
 
@@ -37,7 +39,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-indigo-900">
           <Link to="/products" className="hover:text-indigo-600 transition-colors">Shop</Link>
           <Link to="/cart" className="flex items-center gap-1 hover:text-indigo-600 transition-colors">
-            Cart <span className="bg-indigo-100 text-indigo-800 text-[10px] px-2 py-0.5 rounded-full">0</span>
+            Cart <span className="bg-indigo-100 text-indigo-800 text-[10px] px-2 py-0.5 rounded-full">{totalCount}</span>
           </Link>
           {token ? (
             <button onClick={handleLogout} className="text-red-600 hover:text-red-700 transition-colors font-semibold">Logout</button>
@@ -59,7 +61,9 @@ const Navbar = () => {
         <div className="md:hidden bg-white border-t border-indigo-50 px-6 py-4 space-y-4 shadow-xl absolute w-full left-0 z-40">
           <input type="text" placeholder="Search..." className="w-full bg-indigo-50/50 border border-indigo-100 text-indigo-900 text-sm px-4 py-3 rounded-lg outline-none focus:border-indigo-300" />
           <Link to="/products" className="block text-indigo-900 font-semibold py-2">Shop</Link>
-          <Link to="/cart" className="block text-indigo-900 font-semibold py-2">Cart</Link>
+          <Link to="/cart" className="flex items-center gap-2 text-indigo-900 font-semibold py-2">
+            Cart <span className="bg-indigo-100 text-indigo-800 text-[10px] px-2 py-0.5 rounded-full">{totalCount}</span>
+          </Link>
           {token ? (
             <button onClick={handleLogout} className="block w-full text-left text-red-600 font-semibold py-2">Logout</button>
           ) : (
