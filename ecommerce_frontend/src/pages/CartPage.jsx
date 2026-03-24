@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { updateCartItem, removeCartItem } from '../services/cart';
 import { useCart } from '../context/CartContext';
+import api from '../services/api';
 
 export default function CartPage() {
   const { cartItems, updateCartState } = useCart();
   const navigate = useNavigate();
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   const handleUpdate = async (productId, newQuantity) => {
     if (newQuantity < 1) return;
@@ -23,6 +25,25 @@ export default function CartPage() {
       updateCartState();
     } catch (err) {
       alert('Failed to remove item.');
+    }
+  };
+
+  const handleCheckout = async () => {
+    setIsCheckingOut(true);
+    try {
+      // Safely pinging the explicit /orders/checkout/ route
+      await api.post('orders/checkout/');
+      
+      // Tell Context to reload (which clears the Navbar counter since checkout empties the DB instance)
+      updateCartState();
+      
+      // Navigate to success dashboard
+      navigate('/order-success');
+    } catch (error) {
+      console.error('Checkout failed:', error);
+      alert('Checkout failed. Please ensure your backend is running /orders/checkout/ correctly.');
+    } finally {
+      setIsCheckingOut(false);
     }
   };
 
@@ -124,8 +145,12 @@ export default function CartPage() {
             <span className="text-3xl font-black text-white">${cartTotal.toFixed(2)}</span>
           </div>
           
-          <button className="relative z-10 w-full bg-green-500 text-white py-4 rounded-xl font-bold tracking-wide hover:bg-green-400 shadow-[0_8px_20px_-6px_rgba(22,163,74,0.6)] hover:shadow-[0_12px_24px_-8px_rgba(22,163,74,0.8)] hover:-translate-y-0.5 transition-all">
-            Proceed to Checkout
+          <button 
+            onClick={handleCheckout}
+            disabled={isCheckingOut || cartItems.length === 0}
+            className={`relative z-10 w-full bg-green-500 text-white py-4 rounded-xl font-bold tracking-wide hover:bg-green-400 shadow-[0_8px_20px_-6px_rgba(22,163,74,0.6)] hover:shadow-[0_12px_24px_-8px_rgba(22,163,74,0.8)] hover:-translate-y-0.5 transition-all ${isCheckingOut ? 'opacity-70 cursor-not-allowed transform-none' : ''}`}
+          >
+            {isCheckingOut ? 'Processing Payment...' : 'Proceed to Checkout'}
           </button>
           
           <div className="mt-6 flex justify-center gap-4 text-indigo-300 relative z-10 opacity-70">

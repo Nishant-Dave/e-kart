@@ -3,6 +3,7 @@ import HomePage from './pages/HomePage'
 import ProductsPage from './pages/ProductsPage'
 import ProductDetailPage from './pages/ProductDetailPage'
 import CartPage from './pages/CartPage'
+import OrderSuccessPage from './pages/OrderSuccessPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import Layout from './layouts/Layout'
@@ -22,6 +23,7 @@ function App() {
           {/* SECURE PROTECTED ROUTES */}
           <Route element={<ProtectedRoute />}>
             <Route path="/cart" element={<CartPage />} />
+            <Route path="/order-success" element={<OrderSuccessPage />} />
             {/* <Route path="/orders" element={<OrdersPage />} /> */}
           </Route>
           
