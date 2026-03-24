@@ -6,7 +6,7 @@ import api from './api';
  */
 export const registerUser = async (userData) => {
   try {
-    const response = await api.post('/auth/register/', userData);
+    const response = await api.post('auth/register/', userData);
     return response.data;
   } catch (error) {
     console.error('Registration error:', error.response?.data || error.message);
@@ -20,7 +20,7 @@ export const registerUser = async (userData) => {
  */
 export const loginUser = async (credentials) => {
   try {
-    const response = await api.post('/auth/login/', credentials);
+    const response = await api.post('auth/login/', credentials);
     // Usually responses contain access and refresh tokens
     if (response.data.access) {
       localStorage.setItem('access_token', response.data.access);
