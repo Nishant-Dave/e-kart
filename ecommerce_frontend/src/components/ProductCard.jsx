@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { addToCart } from '../services/cart';
 import { useCart } from '../context/CartContext';
 
 const ProductCard = ({ product }) => {
   const [isAdding, setIsAdding] = useState(false);
   const { updateCartState } = useCart();
+  const navigate = useNavigate();
 
   const handleAddToCart = async (e) => {
     e.stopPropagation(); 
@@ -21,10 +23,19 @@ const ProductCard = ({ product }) => {
     }
   };
 
+  const handleCardClick = () => {
+    if (product.slug) {
+      navigate(`/products/${product.slug}`);
+    }
+  };
+
   const imageUrl = product.image || `https://via.placeholder.com/400x400/eef2ff/312e81?text=${encodeURIComponent(product.name)}`;
   
   return (
-    <div className="group relative flex flex-col p-4 sm:p-5 rounded-2xl bg-white shadow-sm border border-indigo-50 hover:shadow-2xl hover:border-indigo-100 transition-all duration-300 cursor-pointer overflow-hidden transform hover:-translate-y-1">
+    <div 
+      onClick={handleCardClick}
+      className="group relative flex flex-col p-4 sm:p-5 rounded-2xl bg-white shadow-sm border border-indigo-50 hover:shadow-2xl hover:border-indigo-100 transition-all duration-300 cursor-pointer overflow-hidden transform hover:-translate-y-1"
+    >
       {/* Image Container */}
       <div className="relative h-64 w-full rounded-xl bg-indigo-50/50 overflow-hidden mb-4">
         <img 
