@@ -1,18 +1,35 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { totalCount } = useCart();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
   const token = localStorage.getItem('access_token');
+
+  useEffect(() => {
+    setSearchTerm(searchParams.get('search') || '');
+  }, [searchParams]);
 
   const handleLogout = () => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('token');
     navigate('/login');
+  };
+
+  const handleSearchKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      if (searchTerm.trim()) {
+        navigate(`/products?search=${encodeURIComponent(searchTerm.trim())}`);
+      } else {
+        navigate('/products');
+      }
+      setIsMenuOpen(false);
+    }
   };
 
   return (
@@ -28,6 +45,9 @@ const Navbar = () => {
           <input 
             type="text" 
             placeholder="Search our collection..." 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={handleSearchKeyPress}
             className="w-full bg-white border border-slate-200 text-slate-800 text-sm px-5 py-2.5 rounded-full outline-none focus:border-slate-300 focus:ring-2 focus:ring-slate-100 transition-all placeholder-slate-400"
           />
           <svg className="absolute right-4 top-3 w-4 h-4 text-slate-400 group-hover:text-slate-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -62,7 +82,14 @@ const Navbar = () => {
       {/* Mobile Menu Dropdown */}
       {isMenuOpen && (
         <div className="md:hidden bg-slate-50 border-t border-slate-200 px-6 py-4 space-y-4 shadow-xl absolute w-full left-0 z-40">
-          <input type="text" placeholder="Search..." className="w-full bg-white border border-slate-200 text-slate-800 text-sm px-4 py-3 rounded-lg outline-none focus:border-slate-300 placeholder-slate-400" />
+          <input 
+            type="text" 
+            placeholder="Search..." 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={handleSearchKeyPress}
+            className="w-full bg-white border border-slate-200 text-slate-800 text-sm px-4 py-3 rounded-lg outline-none focus:border-slate-300 placeholder-slate-400" 
+          />
           <Link to="/products" className="block text-slate-800 font-semibold py-2 hover:text-slate-900 transition-colors">Shop</Link>
           <Link to="/cart" className="flex items-center gap-2 text-slate-800 font-semibold py-2 hover:text-slate-900 transition-colors">
             Cart <span className="bg-slate-200 text-slate-800 text-[10px] px-2 py-0.5 rounded-full">{totalCount}</span>
