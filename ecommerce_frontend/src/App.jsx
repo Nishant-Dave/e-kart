@@ -5,6 +5,7 @@ import ProductDetailPage from './pages/ProductDetailPage'
 import CartPage from './pages/CartPage'
 import OrderSuccessPage from './pages/OrderSuccessPage'
 import OrdersPage from './pages/OrdersPage'
+import ProfilePage from './pages/ProfilePage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import TermsPage from './pages/TermsPage'
@@ -33,6 +34,7 @@ function App() {
             <Route path="/cart" element={<CartPage />} />
             <Route path="/order-success" element={<OrderSuccessPage />} />
             <Route path="/orders" element={<OrdersPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Route>
           
           <Route path="/login" element={<LoginPage />} />

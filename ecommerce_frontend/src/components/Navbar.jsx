@@ -64,6 +64,7 @@ const Navbar = () => {
           {token ? (
             <>
               <Link to="/orders" className="hover:text-slate-900 transition-colors">Orders</Link>
+              <Link to="/profile" className="hover:text-slate-900 transition-colors">Profile</Link>
               <button onClick={handleLogout} className="text-red-500 hover:text-red-700 transition-colors font-semibold">Logout</button>
             </>
           ) : (
@@ -97,6 +98,7 @@ const Navbar = () => {
           {token ? (
             <>
               <Link to="/orders" className="block text-slate-800 font-semibold py-2 hover:text-slate-900 transition-colors">Orders</Link>
+              <Link to="/profile" className="block text-slate-800 font-semibold py-2 hover:text-slate-900 transition-colors">Profile</Link>
               <button onClick={handleLogout} className="block w-full text-left text-red-500 hover:text-red-700 font-semibold py-2 border-t border-slate-200 mt-2 transition-colors">Logout</button>
             </>
           ) : (
