@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
 export default function Layout({ children }) {
@@ -12,9 +13,9 @@ export default function Layout({ children }) {
         <div className="max-w-[1440px] mx-auto px-8 flex justify-between items-center text-sm text-gray-500">
           <div>&copy; {new Date().getFullYear()} ATELIER. All rights reserved.</div>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-black">Terms</a>
-            <a href="#" className="hover:text-black">Privacy</a>
-            <a href="#" className="hover:text-black">Contact</a>
+            <Link to="/terms" className="hover:text-black transition-colors">Terms</Link>
+            <Link to="/privacy" className="hover:text-black transition-colors">Privacy</Link>
+            <Link to="/contact" className="hover:text-black transition-colors">Contact</Link>
           </div>
         </div>
       </footer>
