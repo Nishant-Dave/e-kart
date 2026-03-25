@@ -37,7 +37,7 @@ const Navbar = () => {
       <div className="max-w-[1440px] w-full mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="text-2xl font-black tracking-tighter text-slate-900 hover:text-slate-700 transition-colors">
-          ATELIER<span className="text-slate-500">.</span>
+          e-Kart<span className="text-slate-500">.</span>
         </Link>
         
         {/* Search - Desktop */}

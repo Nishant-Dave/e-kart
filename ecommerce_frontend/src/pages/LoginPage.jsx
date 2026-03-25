@@ -36,7 +36,7 @@ export default function LoginPage() {
         <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
         
         <h1 className="text-3xl font-black tracking-tight text-indigo-950 mb-2 relative z-10">Sign in</h1>
-        <p className="text-sm font-medium text-indigo-400 mb-8 relative z-10">Welcome back to your Atelier account.</p>
+        <p className="text-sm font-medium text-indigo-400 mb-8 relative z-10">Welcome back to your e-Kart account.</p>
         
         {error && (
           <div className="bg-red-50/80 text-red-600 text-sm p-4 rounded-xl mb-6 border border-red-100 font-medium relative z-10">

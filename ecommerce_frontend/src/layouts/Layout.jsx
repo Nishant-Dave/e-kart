@@ -11,7 +11,7 @@ export default function Layout({ children }) {
       {/* Universal Footer */}
       <footer className="border-t border-gray-100 py-8 mt-auto">
         <div className="max-w-[1440px] mx-auto px-8 flex justify-between items-center text-sm text-gray-500">
-          <div>&copy; {new Date().getFullYear()} ATELIER. All rights reserved.</div>
+          <div>&copy; {new Date().getFullYear()} e-Kart. All rights reserved.</div>
           <div className="flex gap-6">
             <Link to="/terms" className="hover:text-black transition-colors">Terms</Link>
             <Link to="/privacy" className="hover:text-black transition-colors">Privacy</Link>

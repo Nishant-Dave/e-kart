@@ -6,7 +6,7 @@ export default function ContactPage() {
       <h1 className="text-3xl font-bold text-gray-900 mb-6">Contact Us</h1>
       <div className="prose text-gray-600 mb-8">
         <p>If you have any questions, feel free to reach out to our team.</p>
-        <p className="font-semibold mt-4">Email: support@atelier.example.com</p>
+        <p className="font-semibold mt-4">Email: support@e-kart.example.com</p>
       </div>
     </div>
   );
