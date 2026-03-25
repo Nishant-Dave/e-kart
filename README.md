@@ -1,167 +1,212 @@
-# E-Commerce Django Backend
+# 🛒 E-Commerce Full Stack Web Application
 
-A scalable e-commerce backend built with Django and Django REST Framework.
+A modern full-stack e-commerce web application built using **Django, Django REST Framework, and React (Vite)**.
+This project demonstrates real-world architecture, clean API design, and modern UI practices.
 
-## Features (Configured Structure)
-- Custom User Model
-- Modular Apps (`users`, `products`, `cart`, `orders`, `reviews`)
-- Django REST Framework configured with `AllowAny` and `JSONRenderer`
-- Environment Variables ready
-- Health check API (`/api/health/`)
+---
 
-## Quick Start
+## 🚀 Features
 
-### 1. Prerequisites
-- Python 3.10+
-- virtualenv
+### 🔐 Authentication
 
-### 2. Installation Setup
+* Email-based login system
+* JWT authentication (login, register, profile)
+* Protected routes on frontend
 
-Clone the repository and navigate to the project root:
+---
+
+### 🛍️ Product Management
+
+* Product listing with categories
+* Search, filtering, and sorting
+* Product detail page
+* Product images support
+
+---
+
+### 🛒 Cart System
+
+* Add to cart
+* Update quantity
+* Remove items
+* Real-time cart updates (global state)
+
+---
+
+### 💳 Orders & Checkout
+
+* Checkout from cart
+* Order creation
+* Order history page
+* Order status tracking
+
+---
+
+### ⭐ Reviews & Ratings
+
+* Users can rate products (1–5)
+* Add/update reviews
+* Display product reviews
+
+---
+
+### 👤 User Profile
+
+* View and update profile
+* Change password
+* Additional fields (phone, city)
+
+---
+
+### 🎨 UI/UX
+
+* Built with Tailwind CSS
+* Responsive desktop-first design
+* Clean and modern layout
+* Sidebar filters and navigation
+
+---
+
+## 🏗️ Tech Stack
+
+### Backend
+
+* Python
+* Django
+* Django REST Framework (DRF)
+* SimpleJWT
+
+### Frontend
+
+* React (Vite)
+* Tailwind CSS
+* Axios
+
+### Database
+
+* SQLite (development)
+* PostgreSQL (recommended for production)
+
+---
+
+## 📂 Project Structure
+
+### Backend (`ecommerce_backend`)
+
+* users/
+* products/
+* cart/
+* orders/
+* reviews/
+
+### Frontend (`ecommerce_frontend`)
+
+* components/
+* pages/
+* services/
+* context/
+* layouts/
+
+---
+
+## ⚙️ Setup Instructions
+
+### 🔹 Backend Setup
+
 ```bash
-# Create and activate virtual environment
+cd ecommerce_backend
 python -m venv venv
-venv\Scripts\activate  # On Windows
-# source venv/bin/activate  # On macOS/Linux
-
-# Install dependencies
+venv\Scripts\activate   # Windows
 pip install -r requirements.txt
-```
 
-### 3. Environment Variables
-Create a `.env` file in the root directory and add the following:
-```env
-DEBUG=True
-SECRET_KEY=your-secret-key-here
-ALLOWED_HOSTS=localhost,127.0.0.1
-```
-
-### 4. Database Setup
-```bash
 python manage.py makemigrations
 python manage.py migrate
-```
+python manage.py createsuperuser
 
-### 5. Running the Server
-```bash
 python manage.py runserver
 ```
 
-Check the health API to verify it's running: `http://127.0.0.1:8000/api/health/`
+---
 
-### 6. Authentication API Testing
+### 🔹 Frontend Setup
 
-**1. Register a User**
 ```bash
-curl -X POST http://127.0.0.1:8000/api/auth/register/ \
-     -H "Content-Type: application/json" \
-     -d '{"email": "test@example.com", "password": "securepassword123", "first_name": "Test", "last_name": "User"}'
+cd ecommerce_frontend
+npm install
+npm run dev
 ```
 
-**2. Login**
-```bash
-curl -X POST http://127.0.0.1:8000/api/auth/login/ \
-     -H "Content-Type: application/json" \
-     -d '{"email": "test@example.com", "password": "securepassword123"}'
-```
-*(This returns an `access` and `refresh` token)*
+---
 
-**3. Use Token in Headers**
-To access protected routes like the profile endpoint, pass the `access` token in the `Authorization` header using the `Bearer` prefix:
-```bash
-curl -X GET http://127.0.0.1:8000/api/auth/profile/ \
-     -H "Authorization: Bearer <your_access_token>"
+## 🌐 API Base URL
+
+```
+http://127.0.0.1:8000/api/
 ```
 
-### 7. Products API Testing
+---
 
-**1. List all Active Products**
-```bash
-curl -X GET http://127.0.0.1:8000/api/products/
+## 🔑 Environment Variables (Recommended)
+
+Create a `.env` file in backend:
+
+```
+SECRET_KEY=your_secret_key
+DEBUG=True
 ```
 
-**2. List all Categories**
-```bash
-curl -X GET http://127.0.0.1:8000/api/categories/
-```
+---
 
-**3. Search and Filter Products**
-```bash
-# Search by name/description
-curl -X GET "http://127.0.0.1:8000/api/products/?search=laptop"
+## 📸 Screenshots
 
-# Filter by category
-curl -X GET "http://127.0.0.1:8000/api/products/?category=1"
-curl -X GET "http://127.0.0.1:8000/api/products/?category__slug=electronics"
-```
+*Add screenshots of your UI here (Product Page, Cart, etc.)*
 
-### 8. Cart API Testing (Requires Context Token)
+---
 
-Run these endpoints securely using your `Bearer <access_token>`.
+## 🚀 Future Improvements
 
-**1. Get Current Cart**
-```bash
-curl -X GET http://127.0.0.1:8000/api/cart/ \
-     -H "Authorization: Bearer <your_access_token>"
-```
+* Payment integration (Stripe/Razorpay)
+* Guest cart support
+* Email notifications
+* Advanced analytics dashboard
+* Deployment with Docker
 
-**2. Add Product to Cart**
-```bash
-curl -X POST http://127.0.0.1:8000/api/cart/add/ \
-     -H "Authorization: Bearer <your_access_token>" \
-     -H "Content-Type: application/json" \
-     -d '{"product_id": 1, "quantity": 2}'
-```
+---
 
-**3. Update Cart Item Quantity**
-```bash
-curl -X POST http://127.0.0.1:8000/api/cart/update/ \
-     -H "Authorization: Bearer <your_access_token>" \
-     -H "Content-Type: application/json" \
-     -d '{"product_id": 1, "quantity": 5}'
-```
+## 📦 Deployment Plan
 
-**4. Remove From Cart**
-```bash
-curl -X POST http://127.0.0.1:8000/api/cart/remove/ \
-     -H "Authorization: Bearer <your_access_token>" \
-     -H "Content-Type: application/json" \
-     -d '{"product_id": 1}'
-```
+* Backend: Render / Railway
+* Frontend: Vercel
+* Database: PostgreSQL (Neon)
 
-### 9. Orders & Checkout API Testing (Requires Context Token)
+---
 
-**1. Checkout (Convert Cart to Order)**
-Creates a frozen snapshot of the current cart, logs the total price, and then empties the cart.
-```bash
-curl -X POST http://127.0.0.1:8000/api/orders/checkout/ \
-     -H "Authorization: Bearer <your_access_token>"
-```
+## 🧠 Learnings
 
-**2. List User Orders**
-```bash
-curl -X GET http://127.0.0.1:8000/api/orders/ \
-     -H "Authorization: Bearer <your_access_token>"
-```
+This project helped in understanding:
 
-**3. Get Specific Order Details**
-```bash
-curl -X GET http://127.0.0.1:8000/api/orders/1/ \
-     -H "Authorization: Bearer <your_access_token>"
-```
+* Full-stack architecture
+* REST API design
+* State management in React
+* Authentication flows (JWT)
+* Real-world e-commerce logic
 
-### 10. Reviews API Testing
+---
 
-**1. Create or Update a Review (Requires Context Token)**
-*Only one review permitted per product per user.*
-```bash
-curl -X POST http://127.0.0.1:8000/api/reviews/ \
-     -H "Authorization: Bearer <your_access_token>" \
-     -H "Content-Type: application/json" \
-     -d '{"product": 1, "rating": 5, "comment": "Excellent product!"}'
-```
+## 🤝 Contributing
 
-**2. List Reviews for a Product (Public)**
-```bash
-curl -X GET http://127.0.0.1:8000/api/reviews/1/
-```
+Feel free to fork this repository and contribute!
+
+---
+
+## 📄 License
+
+This project is open-source and available under the MIT License.
+
+---
+
+## 👨‍💻 Author
+
+**Nishant Dave**
+
+---
