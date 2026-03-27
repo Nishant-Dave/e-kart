@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 from dotenv import load_dotenv
 from datetime import timedelta
 
@@ -29,9 +30,9 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-c3u(dk#f%!0wtbsq7^e948nlu^4+73-u66=ntc3mei$cvj5#7u')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',') if os.environ.get('ALLOWED_HOSTS') else []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -93,14 +94,9 @@ WSGI_APPLICATION = 'ecommerce_backend.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT', '5432'),
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL')
+    )
 }
 
 
@@ -139,6 +135,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Custom User Model
 AUTH_USER_MODEL = 'users.User'
