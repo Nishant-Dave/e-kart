@@ -1,0 +1,20 @@
+
+> ecommerce_frontend@0.0.0 build
+> vite build
+
+[36mvite v5.4.21 [32mbuilding for production...[36m[39m
+transforming...
+[32m✓[39m 25 modules transformed.
+[31mx[39m Build failed in 631ms
+[31merror during build:
+[31m[vite:css] [postcss] D:/PYTHON/e-kart/ecommerce_frontend/src/index.css:2:4941: `@layer base` is used but no matching `@tailwind base` directive is present.[31m
+file: [36mD:/PYTHON/e-kart/ecommerce_frontend/src/index.css:2:4940[31m
+    at Input.error (D:\PYTHON\e-kart\ecommerce_frontend\node_modules\postcss\lib\input.js:135:16)
+    at AtRule.error (D:\PYTHON\e-kart\ecommerce_frontend\node_modules\postcss\lib\node.js:146:32)
+    at normalizeTailwindDirectives (D:\PYTHON\e-kart\node_modules\tailwindcss\lib\lib\normalizeTailwindDirectives.js:72:32)
+    at D:\PYTHON\e-kart\node_modules\tailwindcss\lib\processTailwindFeatures.js:30:98
+    at plugins (D:\PYTHON\e-kart\node_modules\tailwindcss\lib\plugin.js:38:69)
+    at LazyResult.runOnRoot (D:\PYTHON\e-kart\ecommerce_frontend\node_modules\postcss\lib\lazy-result.js:361:16)
+    at LazyResult.runAsync (D:\PYTHON\e-kart\ecommerce_frontend\node_modules\postcss\lib\lazy-result.js:290:26)
+    at LazyResult.async (D:\PYTHON\e-kart\ecommerce_frontend\node_modules\postcss\lib\lazy-result.js:192:30)
+    at LazyResult.then (D:\PYTHON\e-kart\ecommerce_frontend\node_modules\postcss\lib\lazy-result.js:436:17)[39m

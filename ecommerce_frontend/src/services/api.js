@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-// const api = axios.create({
-//   baseURL: 'https://e-kart-3xsq.onrender.com/api/',
-// });
+const API_URL = import.meta.env.VITE_API_URL;
 
-const API = import.meta.env.VITE_API_URL;
+const api = axios.create({
+  baseURL: API_URL,
+});
 
 // Configure Axios to automatically attach JWT token on requests
 api.interceptors.request.use(
