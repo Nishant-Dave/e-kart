@@ -26,6 +26,7 @@ export const login = async (email, password) => {
   }
 };
 
+
 /**
  * Remove active session tokens
  */
@@ -47,7 +48,12 @@ export const getToken = () => {
 
 export const registerUser = async (userData) => {
   try {
-    const response = await api.post('auth/register/', userData);
+    // Explicitly using absolute path relative to baseURL and adding content-type header
+    const response = await api.post('/auth/register/', userData, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
     return response.data;
   } catch (error) {
     console.error('Registration error:', error.response?.data || error.message);
