@@ -48,8 +48,8 @@ export const getToken = () => {
 
 export const registerUser = async (userData) => {
   try {
-    // Explicitly using absolute path relative to baseURL and adding content-type header
-    const response = await api.post('/auth/register/', userData, {
+    // Relying on the axios baseURL configuration
+    const response = await api.post('auth/register/', userData, {
       headers: {
         'Content-Type': 'application/json'
       }
