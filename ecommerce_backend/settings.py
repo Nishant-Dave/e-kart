@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'django_filters',
+    'cloudinary',
+    'cloudinary_storage',
 
     # Local apps
     'users.apps.UsersConfig',
@@ -100,6 +102,13 @@ DATABASES = {
     )
 }
 
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dgosbb6fe',
+    'API_KEY': '512865453929269',
+    'API_SECRET': 'nfs47SUgy1-803diN2-xUWPqo14',
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
