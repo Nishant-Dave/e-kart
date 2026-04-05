@@ -65,7 +65,7 @@ const ProductCard = ({ product }) => {
           {product.name}
         </h3>
         <span className="text-base sm:text-lg font-black text-indigo-900 mt-0.5">
-          ${Number(product.price).toFixed(2)}
+          ₹{Number(product.price).toFixed(2)}
         </span>
       </div>
     </div>

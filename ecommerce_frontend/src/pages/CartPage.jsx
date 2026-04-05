@@ -92,7 +92,7 @@ export default function CartPage() {
                 <Link to={`/products/${item.product.slug}`} className="text-lg font-bold text-indigo-950 hover:text-indigo-700 transition-colors line-clamp-2">
                   {item.product.name}
                 </Link>
-                <div className="text-xl font-black text-indigo-900 mt-2">${Number(item.product.price).toFixed(2)}</div>
+                <div className="text-xl font-black text-indigo-900 mt-2">₹{Number(item.product.price).toFixed(2)}</div>
                 
                 <div className="flex items-center justify-between w-full mt-4">
                   {/* Quantity Toggles */}
@@ -130,7 +130,7 @@ export default function CartPage() {
           <div className="flex flex-col gap-4 text-indigo-200 font-medium relative z-10">
             <div className="flex justify-between items-center">
               <span>Subtotal</span>
-              <span className="text-white font-bold">${cartTotal.toFixed(2)}</span>
+              <span className="text-white font-bold">₹{cartTotal.toFixed(2)}</span>
             </div>
             <div className="flex justify-between items-center">
               <span>Shipping Estimate</span>
@@ -141,8 +141,8 @@ export default function CartPage() {
           <div className="border-t border-indigo-800/50 my-6 relative z-10"></div>
           
           <div className="flex justify-between items-end mb-8 relative z-10">
-            <span className="text-indigo-200 font-medium">Total (USD)</span>
-            <span className="text-3xl font-black text-white">${cartTotal.toFixed(2)}</span>
+            <span className="text-indigo-200 font-medium">Total (INR)</span>
+            <span className="text-3xl font-black text-white">₹{cartTotal.toFixed(2)}</span>
           </div>
           
           <button 

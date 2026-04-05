@@ -148,7 +148,7 @@ export default function ProductDetailPage() {
             {product.name}
           </h1>
           <p className="text-3xl font-bold text-slate-800 mb-8">
-            ${Number(product.price).toFixed(2)}
+            ₹{Number(product.price).toFixed(2)}
           </p>
           
           <div className="prose text-slate-600 mb-10 text-lg leading-relaxed">

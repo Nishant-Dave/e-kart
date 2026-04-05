@@ -78,7 +78,7 @@ export default function OrdersPage() {
               
               <div className="flex flex-col md:items-end gap-1 w-full md:w-auto mt-2 md:mt-0 pt-4 md:pt-0 border-t border-indigo-50 md:border-t-0">
                 <span className="text-xs font-bold text-indigo-300 uppercase tracking-wider">Total Amount</span>
-                <span className="text-2xl font-black text-indigo-900">${Number(order.total_price || 0).toFixed(2)}</span>
+                <span className="text-2xl font-black text-indigo-900">₹{Number(order.total_price || 0).toFixed(2)}</span>
               </div>
               
             </div>

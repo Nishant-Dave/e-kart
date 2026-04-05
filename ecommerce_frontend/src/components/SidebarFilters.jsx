@@ -54,7 +54,7 @@ const SidebarFilters = ({ categories, onFilterChange }) => {
       </div>
 
       <div>
-        <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-4">Max Price: ${priceRange}</h3>
+        <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-4">Max Price: ₹{priceRange}</h3>
         <input 
           type="range" 
           value={priceRange}
@@ -65,8 +65,8 @@ const SidebarFilters = ({ categories, onFilterChange }) => {
           step="10"
         />
         <div className="flex justify-between mt-2 text-xs font-medium text-slate-500">
-          <span>$0</span>
-          <span>$1000+</span>
+          <span>₹0</span>
+          <span>₹1000+</span>
         </div>
       </div>
     </aside>
